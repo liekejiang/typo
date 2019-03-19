@@ -55,6 +55,13 @@ And /^I am logged into the admin panel$/ do
   end
 end
 
+Given /^that Gundam categories are added$/ do
+    Category.create!({:name => 'Gundam',
+                    :permalink => 'anima',
+                    :keywords => 'UC0079, UC0083, UC0080, UC0096',
+                    :description => 'Gundam series of UC.'})
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
@@ -166,6 +173,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field
   with_scope(parent) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    puts field_value
     if field_value.respond_to? :should
       field_value.should =~ /#{value}/
     else

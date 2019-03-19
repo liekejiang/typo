@@ -11,27 +11,17 @@ describe Admin::CategoriesController do
     request.session = { :user => henri.id }
   end
 
+  describe "test_new" do
+    it "should get success to enter the new page" do
+        get :new
+        expect(response).to render_template(:new)
+    end
+  end
+  
+  
   it "test_index" do
     get :index
     assert_response :redirect, :action => 'index'
-  end
-
-  describe "test_edit" do
-    before(:each) do
-      get :edit, :id => Factory(:category).id
-    end
-
-    it 'should render template new' do
-      assert_template 'new'
-      assert_tag :tag => "table",
-        :attributes => { :id => "category_container" }
-    end
-
-    it 'should have valid category' do
-      assigns(:category).should_not be_nil
-      assert assigns(:category).valid?
-      assigns(:categories).should_not be_nil
-    end
   end
 
   it "test_update" do

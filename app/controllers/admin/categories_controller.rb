@@ -16,7 +16,6 @@ class Admin::CategoriesController < Admin::BaseController
   def destroy
     @record = Category.find(params[:id])
     return(render 'admin/shared/destroy') unless request.post?
-
     @record.destroy
     redirect_to :action => 'new'
   end
